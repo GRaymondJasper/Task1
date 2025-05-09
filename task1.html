@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Animated Login | MyApp</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      overflow-x: hidden;
+    }
+
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-shape:nth-child(1) {
+      width: 120px;
+      height: 120px;
+      top: 20%;
+      left: 10%;
+    }
+
+    .floating-shape:nth-child(2) {
+      width: 180px;
+      height: 180px;
+      bottom: 10%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .login-container {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .login-box .icon {
+      font-size: 50px;
+      color: #1877f2;
+      animation: pulse 2s infinite;
+    }
+
+    .login-box h2 {
+      margin: 20px 0;
+      color: #1877f2;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .login-box input:focus {
+      border-color: #1877f2;
+      box-shadow: 0 0 8px rgba(24, 119, 242, 0.3);
+      outline: none;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-box button:hover {
+      background-color: #155fc1;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .dashboard {
+      display: none;
+      padding: 40px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .dashboard h1 {
+      font-size: 28px;
+      color: #333;
+    }
+
+    .nav-bar {
+      background-color: #1877f2;
+      color: white;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .nav-bar button {
+      background: white;
+      color: #1877f2;
+      border: none;
+      padding: 8px 18px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 10px 0;
+    }
+
+    ul li a {
+      color: #1877f2;
+      text-decoration: none;
+    }
+
+    ul li a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating shapes -->
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-container" id="login-screen">
+    <div class="login-box">
+      <div class="icon">🔒</div>
+      <h2>Secure Login</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="handleLogin()">Log In</button>
+      <p class="error-message" id="login-error"></p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <div class="nav-bar">
+      <h2>MyApp Dashboard</h2>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <h1>Welcome, Admin!</h1>
+    <p>This is your animated dashboard interface.</p>
+
+    <hr style="margin: 30px 0;">
+
+    <section>
+      <h2>Developer Resources</h2>
+      <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">HTML Docs</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">CSS Docs</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JavaScript Docs</a></li>
+        <li><a href="https://codepen.io/" target="_blank">CodePen – Playground</a></li>
+        <li><a href="https://web.dev/" target="_blank">Google Web.dev</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    function handleLogin() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const error = document.getElementById("login-error");
+
+      if (user === "admin" && pass === "1234") {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+      } else {
+        error.textContent = "Invalid username or password.";
+      }
+    }
+
+    function logout() {
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("login-screen").style.display = "flex";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("login-error").textContent = "";
+    }
+  </script>
+
+</body>
+</html>
